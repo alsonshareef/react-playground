@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Person from "./components/Person/Person";
+import { Person } from "./components/Person/Person";
 
 export default class App extends Component {
 	// Main app component state.
@@ -58,12 +58,28 @@ export default class App extends Component {
 
 	// Main app render method.
 	render() {
+		// Style object to be passed as inline styles to buttons.
+		const buttonStyles = {
+			backgroundColor: "white",
+			font: "inherit",
+			border: "1px solid blue",
+			padding: "8px",
+			cursor: "pointer"
+		};
+
 		return (
 			<div className="App">
 				<h1>React App</h1>
 				<p>This is my first React App.</p>
-				<button onClick={this.clickButtonHandler}>Click Me</button>
-				<input readOnly value={this.state.buttonName} />
+				<div>
+					<button
+						style={buttonStyles}
+						onClick={this.clickButtonHandler}
+					>
+						Click Me
+					</button>
+					<input readOnly value={this.state.buttonName} />
+				</div>
 				<Person
 					clickName={this.clickNameHandler.bind(
 						this,
