@@ -6,19 +6,10 @@ export default class App extends Component {
 	// Main app component state.
 	state = {
 		persons: [{ name: "Alson", age: 23, hobbies: "Web Development" }],
-		buttonName: "Beep"
+		showPersons: false
 	};
 
-	// 1. Click handler example which changes the apps state.
-	clickButtonHandler = () => {
-		if (this.state.buttonName === "Beep") {
-			this.setState({ buttonName: "Bloop" });
-		} else {
-			this.setState({ buttonName: "Beep" });
-		}
-	};
-
-	// 2. Toggles name to fullname and firstname when clicked.
+	// 1. Toggles name to fullname and firstname when clicked.
 	clickNameHandler = newName => {
 		if (this.state.persons[0].name === "Alson") {
 			this.setState({
@@ -43,7 +34,7 @@ export default class App extends Component {
 		}
 	};
 
-	// 3. Input change handler for changing UI based on input value.
+	// 2. Input change handler for changing UI based on input value.
 	inputChangeHandler = e => {
 		this.setState({
 			persons: [
@@ -54,6 +45,12 @@ export default class App extends Component {
 				}
 			]
 		});
+	};
+
+	// 3. Toggles the display of Person components
+	togglePersonsHandler = () => {
+		const isShowing = this.state.showPersons;
+		this.setState({ showPersons: !isShowing });
 	};
 
 	// Main app render method.
@@ -67,6 +64,32 @@ export default class App extends Component {
 			cursor: "pointer"
 		};
 
+		// Evaluation of state.showPersons before setting 'persons' variable to Persons list or not
+		let persons = null;
+
+		if (this.state.showPersons) {
+			persons = (
+				<div>
+					{this.state.persons.map(person => {
+						return (
+							<Person
+								clickName={this.clickNameHandler.bind(
+									this,
+									"Alson Shareef"
+								)}
+								nameChange={this.inputChangeHandler}
+								name={person.name}
+								age={person.age}
+							>
+								Hobbies: {person.hobbies}
+							</Person>
+						);
+					})}
+				</div>
+			);
+		}
+
+		// Main App component template
 		return (
 			<div className="App">
 				<h1>React App</h1>
@@ -74,23 +97,12 @@ export default class App extends Component {
 				<div>
 					<button
 						style={buttonStyles}
-						onClick={this.clickButtonHandler}
+						onClick={this.togglePersonsHandler}
 					>
-						Click Me
+						{this.state.showPersons ? "Hide" : "Show"}
 					</button>
-					<input readOnly value={this.state.buttonName} />
 				</div>
-				<Person
-					clickName={this.clickNameHandler.bind(
-						this,
-						"Alson Shareef"
-					)}
-					nameChange={this.inputChangeHandler}
-					name={this.state.persons[0].name}
-					age={this.state.persons[0].age}
-				>
-					Hobbies: {this.state.persons[0].hobbies}
-				</Person>
+				{persons}
 			</div>
 		);
 	}
