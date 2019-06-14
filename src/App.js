@@ -5,52 +5,38 @@ import { Person } from "./components/Person/Person";
 export default class App extends Component {
 	// Main app component state.
 	state = {
-		persons: [{ name: "Alson", age: 23, hobbies: "Web Development" }],
+		persons: [
+			{ name: "Alson Shareef", age: 23, hobbies: "Web Development" },
+			{ name: "John Doe", age: 34, hobbies: "UX/UI and Web Design" }
+		],
 		showPersons: false
 	};
 
-	// 1. Toggles name to fullname and firstname when clicked.
-	clickNameHandler = newName => {
-		if (this.state.persons[0].name === "Alson") {
-			this.setState({
-				persons: [
-					{
-						name: newName,
-						age: 23,
-						hobbies: "Web Development"
-					}
-				]
-			});
-		} else {
-			this.setState({
-				persons: [
-					{
-						name: "Alson",
-						age: 23,
-						hobbies: "Web Development"
-					}
-				]
-			});
-		}
-	};
-
-	// 2. Input change handler for changing UI based on input value.
-	inputChangeHandler = e => {
-		this.setState({
-			persons: [
-				{
-					name: e.target.value,
-					age: 23,
-					hobbies: "Web Development"
-				}
-			]
-		});
-	};
-
-	// 3. Toggles the display of Person components
+	// 1. Toggles the display of Person components
 	togglePersonsHandler = () => {
 		const isShowing = this.state.showPersons;
 		this.setState({ showPersons: !isShowing });
+	};
+
+	// 2. Deletes a person from app state.
+	deletePersonHandler = personIndex => {
+		const persons = [...this.state.persons];
+		persons.splice(personIndex, 1);
+		this.setState({ persons: persons });
+	};
+
+	// 3. Input change handler for changing UI based on input value.
+	inputChangeHandler = e => {
+		this.setState({
+			persons: [
+				{ name: "Alson Shareef", age: 23, hobbies: "Web Development" },
+				{
+					name: e.target.value,
+					age: 34,
+					hobbies: "UX/UI and Web Design"
+				}
+			]
+		});
 	};
 
 	// Main app render method.
@@ -70,16 +56,15 @@ export default class App extends Component {
 		if (this.state.showPersons) {
 			persons = (
 				<div>
-					{this.state.persons.map(person => {
+					{this.state.persons.map((person, index) => {
 						return (
 							<Person
-								clickName={this.clickNameHandler.bind(
-									this,
-									"Alson Shareef"
-								)}
-								nameChange={this.inputChangeHandler}
 								name={person.name}
 								age={person.age}
+								nameChange={this.inputChangeHandler}
+								deletePerson={() =>
+									this.deletePersonHandler(index)
+								}
 							>
 								Hobbies: {person.hobbies}
 							</Person>
