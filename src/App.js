@@ -6,8 +6,18 @@ export default class App extends Component {
 	// Main app component state.
 	state = {
 		persons: [
-			{ name: "Alson Shareef", age: 23, hobbies: "Web Development" },
-			{ name: "John Doe", age: 34, hobbies: "UX/UI and Web Design" }
+			{
+				id: 1,
+				name: "Alson Shareef",
+				age: 23,
+				hobbies: "Web Development"
+			},
+			{
+				id: 2,
+				name: "John Doe",
+				age: 34,
+				hobbies: "UX/UI and Web Design"
+			}
 		],
 		showPersons: false
 	};
@@ -26,16 +36,25 @@ export default class App extends Component {
 	};
 
 	// 3. Input change handler for changing UI based on input value.
-	inputChangeHandler = e => {
+	inputChangeHandler = (e, id) => {
+		// 1. Find index of person object being changed.
+		const personIndex = this.state.persons.findIndex(p => {
+			return p.id === id;
+		});
+
+		// 2. Create copy of that person object to mutate instead of state.
+		const person = {
+			...this.state.persons[personIndex]
+		};
+
+		// 3. Change name prop of copied person object to input value.
+		person.name = e.target.value;
+
+		// 4. Create copy of entire persons array to mutate, and replace old person object with changed person.
+		const persons = [...this.state.persons];
+		persons[personIndex] = person;
 		this.setState({
-			persons: [
-				{ name: "Alson Shareef", age: 23, hobbies: "Web Development" },
-				{
-					name: e.target.value,
-					age: 34,
-					hobbies: "UX/UI and Web Design"
-				}
-			]
+			persons: persons
 		});
 	};
 
@@ -61,10 +80,13 @@ export default class App extends Component {
 							<Person
 								name={person.name}
 								age={person.age}
-								nameChange={this.inputChangeHandler}
+								nameChange={e =>
+									this.inputChangeHandler(e, person.id)
+								}
 								deletePerson={() =>
 									this.deletePersonHandler(index)
 								}
+								key={person.id}
 							>
 								Hobbies: {person.hobbies}
 							</Person>
