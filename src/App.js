@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
+import Radium from "radium";
 import { Person } from "./components/Person/Person";
 
-export default class App extends Component {
+class App extends Component {
 	// Main app component state.
 	state = {
 		persons: [
@@ -62,11 +63,15 @@ export default class App extends Component {
 	render() {
 		// Style object to be passed as inline styles to buttons.
 		const buttonStyles = {
-			backgroundColor: "white",
+			backgroundColor: "turquoise",
 			font: "inherit",
 			border: "1px solid blue",
 			padding: "8px",
-			cursor: "pointer"
+			cursor: "pointer",
+			":hover": {
+				backgroundColor: "lightblue",
+				color: "black"
+			}
 		};
 
 		// Evaluation of state.showPersons before setting 'persons' variable to Persons list or not
@@ -94,6 +99,12 @@ export default class App extends Component {
 					})}
 				</div>
 			);
+
+			buttonStyles.backgroundColor = "red";
+			buttonStyles[":hover"] = {
+				backgroundColor: "salmon",
+				color: "black"
+			};
 		}
 
 		// Main App component template
@@ -114,3 +125,5 @@ export default class App extends Component {
 		);
 	}
 }
+
+export default Radium(App);
