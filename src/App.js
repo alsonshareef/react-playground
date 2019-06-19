@@ -60,15 +60,6 @@ class App extends Component {
 
 	// Main app render method.
 	render() {
-		// Style object to be passed as inline styles to buttons.
-		const buttonStyles = {
-			backgroundColor: "turquoise",
-			font: "inherit",
-			border: "1px solid blue",
-			padding: "8px",
-			cursor: "pointer"
-		};
-
 		// Evaluation of state.showPersons before setting 'persons' variable to Persons list or not
 		let persons = null;
 
@@ -94,8 +85,6 @@ class App extends Component {
 					})}
 				</div>
 			);
-
-			buttonStyles.backgroundColor = "red";
 		}
 
 		// Main App component template
@@ -103,14 +92,16 @@ class App extends Component {
 			<div className={classes.App}>
 				<h1>React App</h1>
 				<p>This is my first React App.</p>
-				<div>
-					<button
-						style={buttonStyles}
-						onClick={this.togglePersonsHandler}
-					>
-						{this.state.showPersons ? "Hide" : "Show"}
-					</button>
-				</div>
+				<button
+					className={
+						this.state.showPersons
+							? classes.buttonRed
+							: classes.buttonBlue
+					}
+					onClick={this.togglePersonsHandler}
+				>
+					{this.state.showPersons ? "Hide" : "Show"}
+				</button>
 				{persons}
 			</div>
 		);
