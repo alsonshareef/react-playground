@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-import Radium, { StyleRoot } from "radium";
 import Person from "./components/Person/Person";
 
 class App extends Component {
@@ -67,11 +66,7 @@ class App extends Component {
 			font: "inherit",
 			border: "1px solid blue",
 			padding: "8px",
-			cursor: "pointer",
-			":hover": {
-				backgroundColor: "lightblue",
-				color: "black"
-			}
+			cursor: "pointer"
 		};
 
 		// Evaluation of state.showPersons before setting 'persons' variable to Persons list or not
@@ -101,31 +96,25 @@ class App extends Component {
 			);
 
 			buttonStyles.backgroundColor = "red";
-			buttonStyles[":hover"] = {
-				backgroundColor: "salmon",
-				color: "black"
-			};
 		}
 
 		// Main App component template
 		return (
-			<StyleRoot>
-				<div className="App">
-					<h1>React App</h1>
-					<p>This is my first React App.</p>
-					<div>
-						<button
-							style={buttonStyles}
-							onClick={this.togglePersonsHandler}
-						>
-							{this.state.showPersons ? "Hide" : "Show"}
-						</button>
-					</div>
-					{persons}
+			<div className="App">
+				<h1>React App</h1>
+				<p>This is my first React App.</p>
+				<div>
+					<button
+						style={buttonStyles}
+						onClick={this.togglePersonsHandler}
+					>
+						{this.state.showPersons ? "Hide" : "Show"}
+					</button>
 				</div>
-			</StyleRoot>
+				{persons}
+			</div>
 		);
 	}
 }
 
-export default Radium(App);
+export default App;
