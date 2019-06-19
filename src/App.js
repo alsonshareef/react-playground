@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import Radium from "radium";
-import { Person } from "./components/Person/Person";
+import Radium, { StyleRoot } from "radium";
+import Person from "./components/Person/Person";
 
 class App extends Component {
 	// Main app component state.
@@ -109,19 +109,21 @@ class App extends Component {
 
 		// Main App component template
 		return (
-			<div className="App">
-				<h1>React App</h1>
-				<p>This is my first React App.</p>
-				<div>
-					<button
-						style={buttonStyles}
-						onClick={this.togglePersonsHandler}
-					>
-						{this.state.showPersons ? "Hide" : "Show"}
-					</button>
+			<StyleRoot>
+				<div className="App">
+					<h1>React App</h1>
+					<p>This is my first React App.</p>
+					<div>
+						<button
+							style={buttonStyles}
+							onClick={this.togglePersonsHandler}
+						>
+							{this.state.showPersons ? "Hide" : "Show"}
+						</button>
+					</div>
+					{persons}
 				</div>
-				{persons}
-			</div>
+			</StyleRoot>
 		);
 	}
 }
