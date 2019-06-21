@@ -4,7 +4,7 @@ import classes from "./Header.css";
 const Header = props => {
 	return (
 		<div>
-			<h1>React App</h1>
+			<h1>{props.title}</h1>
 			<p>This is my first React App.</p>
 			<button
 				className={
