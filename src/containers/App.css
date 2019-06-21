@@ -1,27 +1,3 @@
 .App {
 	text-align: center;
 }
-
-.buttonBlue {
-	border: 1px solid blue;
-	background-color: turquoise;
-	font: inherit;
-	padding: 8px;
-	cursor: pointer;
-}
-
-.buttonBlue:hover {
-	background-color: lightblue;
-}
-
-.buttonRed {
-	background-color: red;
-	border: 1px solid blue;
-	font: inherit;
-	padding: 8px;
-	cursor: pointer;
-}
-
-.buttonRed:hover {
-	background-color: salmon;
-}
