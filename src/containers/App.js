@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import classes from "./App.css";
-import Person from "../components/Persons/Person/Person";
+import Header from "../components/Header/Header";
+import Persons from "../components/Persons/Persons";
 
 class App extends Component {
 	// Main app component state.
@@ -66,23 +67,11 @@ class App extends Component {
 		if (this.state.showPersons) {
 			persons = (
 				<div>
-					{this.state.persons.map((person, index) => {
-						return (
-							<Person
-								name={person.name}
-								age={person.age}
-								nameChange={e =>
-									this.inputChangeHandler(e, person.id)
-								}
-								deletePerson={() =>
-									this.deletePersonHandler(index)
-								}
-								key={person.id}
-							>
-								Hobbies: {person.hobbies}
-							</Person>
-						);
-					})}
+					<Persons
+						persons={this.state.persons}
+						nameChange={this.inputChangeHandler}
+						deletePerson={this.deletePersonHandler}
+					/>
 				</div>
 			);
 		}
@@ -90,18 +79,10 @@ class App extends Component {
 		// Main App component template
 		return (
 			<div className={classes.App}>
-				<h1>React App</h1>
-				<p>This is my first React App.</p>
-				<button
-					className={
-						this.state.showPersons
-							? classes.buttonRed
-							: classes.buttonBlue
-					}
-					onClick={this.togglePersonsHandler}
-				>
-					{this.state.showPersons ? "Hide" : "Show"}
-				</button>
+				<Header
+					showPersons={this.state.showPersons}
+					togglePersons={this.togglePersonsHandler}
+				/>
 				{persons}
 			</div>
 		);
