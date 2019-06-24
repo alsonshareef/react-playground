@@ -4,24 +4,54 @@ import Header from "../components/Header/Header";
 import Persons from "../components/Persons/Persons";
 
 class App extends Component {
-	// Main app component state.
-	state = {
-		persons: [
-			{
-				id: 1,
-				name: "Alson Shareef",
-				age: 23,
-				hobbies: "Web Development"
-			},
-			{
-				id: 2,
-				name: "John Doe",
-				age: 34,
-				hobbies: "UX/UI and Web Design"
-			}
-		],
-		showPersons: false
-	};
+	constructor(props) {
+		console.log("[App.js] constructor");
+		super(props);
+		this.state = {
+			persons: [
+				{
+					id: 1,
+					name: "Alson Shareef",
+					age: 23,
+					hobbies: "Web Development"
+				},
+				{
+					id: 2,
+					name: "John Doe",
+					age: 34,
+					hobbies: "UX/UI and Web Design"
+				}
+			],
+			showPersons: false,
+			showHeader: true
+		};
+	}
+
+	/**
+	 * LIFECYCLE HOOKS
+	 */
+
+	static getDerivedStateFromProps(props, state) {
+		console.log("[App.js] getDerivedStateFromProps", props);
+		return state;
+	}
+
+	componentDidMount() {
+		console.log("[App.js] componentDidMount");
+	}
+
+	shouldComponentUpdate(nextProps, nextState) {
+		console.log("[App.js] shouldComponentUpdate");
+		return true;
+	}
+
+	componentDidUpdate() {
+		console.log("[App.js] componentDidUpdate");
+	}
+
+	/**
+	 * EVENT HANDLERS
+	 */
 
 	// 1. Toggles the display of Person components
 	togglePersonsHandler = () => {
@@ -61,6 +91,8 @@ class App extends Component {
 
 	// Main app render method.
 	render() {
+		console.log("[App.js] render");
+
 		// Evaluation of state.showPersons before setting 'persons' variable to Persons list or not
 		let persons = null;
 
@@ -79,11 +111,20 @@ class App extends Component {
 		// Main App component template
 		return (
 			<div className={classes.App}>
-				<Header
-					title={this.props.appTitle}
-					showPersons={this.state.showPersons}
-					togglePersons={this.togglePersonsHandler}
-				/>
+				{this.state.showHeader ? (
+					<Header
+						title={this.props.appTitle}
+						showPersons={this.state.showPersons}
+						togglePersons={this.togglePersonsHandler}
+					/>
+				) : null}
+				<button
+					onClick={() => {
+						this.setState({ showHeader: !this.state.showHeader });
+					}}
+				>
+					Remove Header
+				</button>
 				{persons}
 			</div>
 		);
