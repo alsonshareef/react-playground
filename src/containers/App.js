@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import classes from "./App.css";
+
 import Header from "../components/Header/Header";
 import Persons from "../components/Persons/Persons";
+import WithClasses from "../HOC/WithClasses";
 
 class App extends Component {
 	constructor(props) {
@@ -110,7 +112,7 @@ class App extends Component {
 
 		// Main App component template
 		return (
-			<div className={classes.App}>
+			<WithClasses classes={classes.App}>
 				{this.state.showHeader ? (
 					<Header
 						title={this.props.appTitle}
@@ -126,7 +128,7 @@ class App extends Component {
 					Remove Header
 				</button>
 				{persons}
-			</div>
+			</WithClasses>
 		);
 	}
 }
