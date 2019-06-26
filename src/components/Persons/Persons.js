@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import Person from "./Person/Person";
 
 // Generates a list of Person components based on state.persons array.
-class Persons extends Component {
+class Persons extends PureComponent {
 	constructor(props) {
 		super(props);
 		console.log("[Persons.js] constructor");
@@ -22,10 +22,19 @@ class Persons extends Component {
 		console.log("[Persons.js] componentDidMount");
 	}
 
-	shouldComponentUpdate(nextProps, nextState) {
-		console.log("[Persons.js] shouldComponentUpdate");
-		return true;
-	}
+	// ** Use this manual prop check for performance purposes if not using 'PureComponent'.
+	// shouldComponentUpdate(nextProps, nextState) {
+	// 	console.log("[Persons.js] shouldComponentUpdate");
+	// 	if (
+	// 		nextProps.persons !== this.props.persons ||
+	// 		nextProps.nameChange !== this.props.nameChange ||
+	// 		nextProps.deletePerson !== this.props.deletePerson
+	// 	) {
+	// 		return true;
+	// 	} else {
+	// 		return false;
+	// 	}
+	// }
 
 	getSnapshotBeforeUpdate(prevProps, prevState) {
 		console.log("[Persons.js] getSnapshotBeforeUpdate");
@@ -35,6 +44,10 @@ class Persons extends Component {
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		console.log(snapshot);
 		console.log("[Persons.js] componentDidUpdate");
+	}
+
+	componentWillUnmount() {
+		console.log("[Persons.js] componentWillUnmount");
 	}
 
 	render() {
