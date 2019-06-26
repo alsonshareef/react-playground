@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./Header.css";
 
 const Header = props => {
+	// Mounting
+	useEffect(() => {
+		console.log("[Header.js] MOUNT useEffect");
+		return () => {
+			console.log("[Header.js] UNMOUNTING useEffect CLEANUP");
+		};
+	}, []);
+
+	// Updating
+	useEffect(() => {
+		console.log("[Header.js] UPDATING useEffect");
+		return () => {
+			console.log("[Header.js] UPDATING useEffect CLEANUP");
+		};
+	});
+
 	return (
 		<div>
 			<h1>{props.title}</h1>
@@ -18,4 +34,4 @@ const Header = props => {
 	);
 };
 
-export default Header;
+export default React.memo(Header);
