@@ -3,8 +3,8 @@ import classes from "./App.css";
 
 import Header from "../components/Header/Header";
 import Persons from "../components/Persons/Persons";
-import withClasses from "../HOC/withClasses";
-import Auxiliary from "../HOC/Auxiliary";
+import withClasses from "../hoc/withClasses";
+import Auxiliary from "../hoc/Auxiliary";
 
 class App extends Component {
 	constructor(props) {

@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import classes from "./Person.css";
 
-import Auxiliary from "../../../HOC/Auxiliary";
-import withClasses from "../../../HOC/withClasses";
+import Auxiliary from "../../../hoc/Auxiliary";
+import withClasses from "../../../hoc/withClasses";
 
 const Person = ({ name, age, nameChange, deletePerson, children }) => {
 	console.log("[Person.js] rendering..");
