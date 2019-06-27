@@ -3,7 +3,8 @@ import classes from "./App.css";
 
 import Header from "../components/Header/Header";
 import Persons from "../components/Persons/Persons";
-import WithClasses from "../HOC/WithClasses";
+import withClasses from "../HOC/withClasses";
+import Auxiliary from "../HOC/Auxiliary";
 
 class App extends Component {
 	constructor(props) {
@@ -65,7 +66,7 @@ class App extends Component {
 	deletePersonHandler = personIndex => {
 		const persons = [...this.state.persons];
 		persons.splice(personIndex, 1);
-		this.setState({ persons: persons });
+		this.setState({ persons });
 	};
 
 	// 3. Input change handler for changing UI based on input value.
@@ -86,9 +87,7 @@ class App extends Component {
 		// 4. Create copy of entire persons array to mutate, and replace old person object with changed person.
 		const persons = [...this.state.persons];
 		persons[personIndex] = person;
-		this.setState({
-			persons: persons
-		});
+		this.setState({ persons });
 	};
 
 	// Main app render method.
@@ -112,7 +111,7 @@ class App extends Component {
 
 		// Main App component template
 		return (
-			<WithClasses classes={classes.App}>
+			<Auxiliary>
 				{this.state.showHeader ? (
 					<Header
 						title={this.props.appTitle}
@@ -128,9 +127,9 @@ class App extends Component {
 					Remove Header
 				</button>
 				{persons}
-			</WithClasses>
+			</Auxiliary>
 		);
 	}
 }
 
-export default App;
+export default withClasses(App, classes.App);
