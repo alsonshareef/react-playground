@@ -1,17 +1,29 @@
 import React from "react";
+import PropTypes from "prop-types";
 import classes from "./Person.css";
+
+import Auxiliary from "../../../HOC/Auxiliary";
+import withClasses from "../../../HOC/withClasses";
 
 const Person = ({ name, age, nameChange, deletePerson, children }) => {
 	console.log("[Person.js] rendering..");
 	return (
-		<div className={classes.person}>
+		<Auxiliary>
 			<p>My name is {name}.</p>
 			<input onChange={nameChange} value={name} />
 			<p>I am {age} years old.</p>
 			<p>{children}</p>
 			<button onClick={deletePerson}>Delete</button>
-		</div>
+		</Auxiliary>
 	);
 };
 
-export default Person;
+Person.propTypes = {
+	name: PropTypes.string,
+	age: PropTypes.number,
+	nameChange: PropTypes.func,
+	deletePerson: PropTypes.func,
+	children: PropTypes.array
+};
+
+export default withClasses(Person, classes.person);
