@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import classes from "./Person.css";
 
@@ -8,17 +8,17 @@ import AuthContext from "../../../context/auth-context";
 
 const Person = ({ name, age, nameChange, deletePerson, children }) => {
 	console.log("[Person.js] rendering..");
+
+	// AuthContext object retrieved by useContext hook.
+	const authContext = useContext(AuthContext);
+
 	return (
 		<Auxiliary>
-			<AuthContext.Consumer>
-				{context =>
-					context.authenticated ? (
-						<strong>Authenticated</strong>
-					) : (
-						<em>Please log in</em>
-					)
-				}
-			</AuthContext.Consumer>
+			{authContext.authenticated ? (
+				<strong>Authenticated</strong>
+			) : (
+				<em>Please log in</em>
+			)}
 			<p>My name is {name}.</p>
 			<input onChange={nameChange} value={name} />
 			<p>I am {age} years old.</p>
