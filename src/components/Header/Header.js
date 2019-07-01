@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import classes from "./Header.css";
+import AuthContext from "../../context/auth-context";
 
 const Header = props => {
 	// Reference variable for togglePerson button.
@@ -35,6 +36,13 @@ const Header = props => {
 			>
 				{props.showPersons ? "Hide" : "Show"}
 			</button>
+			<AuthContext.Consumer>
+				{context => (
+					<button className={classes.login} onClick={context.login}>
+						{context.authenticated ? "Logout" : "Login"}
+					</button>
+				)}
+			</AuthContext.Consumer>
 		</div>
 	);
 };
