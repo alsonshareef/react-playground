@@ -21,3 +21,11 @@
 .buttonRed:hover {
 	background-color: salmon;
 }
+
+.login {
+	border: 1px solid blue;
+	background-color: orangered;
+	font: inherit;
+	padding: 8px;
+	cursor: pointer;
+}
