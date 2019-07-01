@@ -1,10 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import classes from "./Header.css";
 import AuthContext from "../../context/auth-context";
 
 const Header = props => {
 	// Reference variable for togglePerson button.
 	const togglePersonsRef = useRef(null);
+
+	// AuthContext object retrieved by useContext hook.
+	const authContext = useContext(AuthContext);
 
 	// Mounting
 	useEffect(() => {
@@ -36,13 +39,9 @@ const Header = props => {
 			>
 				{props.showPersons ? "Hide" : "Show"}
 			</button>
-			<AuthContext.Consumer>
-				{context => (
-					<button className={classes.login} onClick={context.login}>
-						{context.authenticated ? "Logout" : "Login"}
-					</button>
-				)}
-			</AuthContext.Consumer>
+			<button className={classes.login} onClick={authContext.login}>
+				{authContext.authenticated ? "Logout" : "Login"}
+			</button>
 		</div>
 	);
 };
