@@ -4,11 +4,21 @@ import classes from "./Person.css";
 
 import Auxiliary from "../../../hoc/Auxiliary";
 import withClasses from "../../../hoc/withClasses";
+import AuthContext from "../../../context/auth-context";
 
 const Person = ({ name, age, nameChange, deletePerson, children }) => {
 	console.log("[Person.js] rendering..");
 	return (
 		<Auxiliary>
+			<AuthContext.Consumer>
+				{context =>
+					context.authenticated ? (
+						<strong>Authenticated</strong>
+					) : (
+						<em>Please log in</em>
+					)
+				}
+			</AuthContext.Consumer>
 			<p>My name is {name}.</p>
 			<input onChange={nameChange} value={name} />
 			<p>I am {age} years old.</p>
