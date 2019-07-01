@@ -5,6 +5,7 @@ import Header from "../components/Header/Header";
 import Persons from "../components/Persons/Persons";
 import withClasses from "../hoc/withClasses";
 import Auxiliary from "../hoc/Auxiliary";
+import AuthContext from "../context/auth-context";
 
 class App extends Component {
 	constructor(props) {
@@ -26,7 +27,8 @@ class App extends Component {
 				}
 			],
 			showPersons: false,
-			showHeader: true
+			showHeader: true,
+			authenticated: false
 		};
 	}
 
@@ -90,6 +92,11 @@ class App extends Component {
 		this.setState({ persons });
 	};
 
+	//4. Changes authentication status to true.
+	loginHandler = () => {
+		this.setState({ authenticated: !this.state.authenticated });
+	};
+
 	// Main app render method.
 	render() {
 		console.log("[App.js] render");
@@ -112,13 +119,6 @@ class App extends Component {
 		// Main App component template
 		return (
 			<Auxiliary>
-				{this.state.showHeader ? (
-					<Header
-						title={this.props.appTitle}
-						showPersons={this.state.showPersons}
-						togglePersons={this.togglePersonsHandler}
-					/>
-				) : null}
 				<button
 					onClick={() => {
 						this.setState({ showHeader: !this.state.showHeader });
@@ -126,7 +126,21 @@ class App extends Component {
 				>
 					Remove Header
 				</button>
-				{persons}
+				<AuthContext.Provider
+					value={{
+						authenticated: this.state.authenticated,
+						login: this.loginHandler
+					}}
+				>
+					{this.state.showHeader ? (
+						<Header
+							title={this.props.appTitle}
+							showPersons={this.state.showPersons}
+							togglePersons={this.togglePersonsHandler}
+						/>
+					) : null}
+					{persons}
+				</AuthContext.Provider>
 			</Auxiliary>
 		);
 	}
